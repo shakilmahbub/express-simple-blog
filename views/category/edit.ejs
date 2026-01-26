@@ -1,0 +1,7 @@
+<div class="container">
+    <h3>Edit category</h3>
+    <form action="/admin/categories/<%= category._id %>/update?_method=put" method="post">
+        <input type="text" name="title" required placeholder="Title" value="<%= category.title %>" />
+        <input type="submit" class="btn" value="submit"/>
+    </form>
+</div>

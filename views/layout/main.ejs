@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= meta.pageTitle %></title>
+    <meta name="description" content="<%= meta.pageDescription %>" >
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+    <div class="container">
+    <%- include('../sections/header.ejs') %>
+    <div class="body">
+        <main class="main">
+            <%- body %>
+        </main>
+    </div>
+    <%- include('../sections/footer.ejs') %>
+    </div>
+</body>
+</html>

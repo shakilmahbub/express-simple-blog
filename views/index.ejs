@@ -1,0 +1,23 @@
+<div class="author">
+    <h1 class="author__heading">Hi, I am Raddy.</h1>
+    <p class="author__body">Web developer and content creator.</p>
+</div>
+
+<img src="/images/hero-image.webp" alt="person looking out through window" class="hero-image" width="300">
+
+<section class="articles">
+    <h2 class="articles__heading">Latest Posts</h2>
+    <ul class="article-ul">
+        <% posts.forEach(function(post){ %>
+            <li>
+            <a href="posts/<%- post._id %>">
+                <span><%- post.title %></span>
+                <span class="article-list__date"><%- post.created_at.toDateString() %></span>
+            </a>
+        </li>
+        <% }); %>
+    
+    </ul>
+</section>
+
+<a href="#" class="pagination">&lt;|</a>

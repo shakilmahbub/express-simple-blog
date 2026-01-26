@@ -1,0 +1,18 @@
+<div class="container articles">
+    <h3>We are in category page</h3>
+    <a href="/admin/categories/create" class="btn">Add new category</a>
+    <ul class="article-ul categories">
+        <% categoires.forEach(function(category){ %>
+        <li>
+            <span><%- category.title %></span>
+            <div>
+                <a href="/admin/categories/<%= category._id %>/edit" class="btn">Edit</a>
+                <form action="/admin/categories/<%= category._id %>/delete?_method=delete" method="POST">
+                    <input type="submit" value="delete" class="btn" />
+                </form>
+            </div>
+        </li>
+        <% }); %>
+
+    </ul>
+</div>
