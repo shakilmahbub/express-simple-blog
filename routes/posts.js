@@ -4,12 +4,12 @@ const posts = express.Router();
 import authenticated from '../app/middlewares/auth.js';
 
 posts.get('/',index);
-posts.post('/',store);
+posts.post('/', authenticated, store);
 posts.get('/create',authenticated, create);
 posts.get('/:id',show);
-posts.post('/:id/update',authenticated, update);
+posts.put('/:id/update',authenticated, update);
 posts.get('/:id/edit',authenticated, edit);
-posts.post('/:id/delete',authenticated,destroy);
+posts.delete('/:id/delete',authenticated,destroy);
 
 
 export default posts;

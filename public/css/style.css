@@ -346,6 +346,12 @@ img {
     gap: 12px;
 }
 
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .categories li span {
     flex: 1;
     text-align: left;

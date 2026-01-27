@@ -10,10 +10,16 @@
     <ul class="article-ul">
         <% posts.forEach(function(post){ %>
             <li>
-            <a href="posts/<%- post._id %>">
+            <a href="/posts/<%- post._id %>">
                 <span><%- post.title %></span>
                 <span class="article-list__date"><%- post.created_at.toDateString() %></span>
             </a>
+            <div class="actions">
+                <a href="/posts/<%- post._id %>/edit"><span class="btn">Edit</span></a>
+                <form action="/posts/<%= post._id %>/delete?_method=delete" method="post">
+                    <input type="submit" value="delete" class="btn" />
+                </form>
+            </div>
         </li>
         <% }); %>
     

@@ -17,9 +17,21 @@ export const create = async (reg,res)=>{
     return res.render('posts/create',{meta});
 }
 
-export const store = async (reg,res)=>{
+export const store = async (req,res)=>{
+    const title = req.body.title;
+    if(!title){
+        return res.status().json({message: 'Title filed is required'});
+    }
 
-    return res.json(reg.body);
+    try {
+        const newPost = new Post(req.body);
+        await newPost.save();
+        return res.redirect('/');
+    } catch (error) {
+        return res.status('500').json({message: 'Internal server error!'});
+    }
+
+    
 }
 
 export const show = async (reg,res)=>{
@@ -44,10 +56,22 @@ export const edit = async (reg,res)=>{
     return res.render('posts/edit',{meta,post});
 }
 
-export const update = async (reg,res)=>{
-    
+export const update = async (req,res)=>{
+    try {
+        await Post.findByIdAndUpdate(req.params.id,req.body);
+
+        return res.redirect('/');
+    } catch (error) {
+        return res.status(500).json({message: 'Internal server error'});
+    }
 }
 
-export const destroy = async (reg,res)=>{
-    
+export const destroy = async (req,res)=>{
+    try {
+        await Post.findByIdAndDelete(req.params.id);
+        return res.redirect('/');
+        console.log('Post deleted');
+    } catch (error) {
+        return res.status(500).json({message: 'Internal server error'});
+    }
 }
