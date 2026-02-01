@@ -1,4 +1,10 @@
 <div class="single-article">
     <h3><%- post.title %> - <%- post.created_at.toDateString() %></h3>
+    <% if(post.cover) {%>
+    <div class="cover-image">
+        <img src="/uploads/<%- post.cover %>" class="hero-image" width="250"/>
+    </div>
+    <% } %>
+    <div class="info" style="display: flex; justify-content: space-between;"><% if(post.user){ %><span>Author :  <%= post.user.name %></span><% } %><% if(post.category){ %><span>Catrgory :  <a href="#"><%= post.category.title %></a></span><% } %></div>
     <p><%- post.description %></p>
 </div>

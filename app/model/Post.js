@@ -12,11 +12,19 @@ const postSchima = new schima({
         reqtured: true
     },
     category:{
-        type: Number
+        type: mongoose.Types.ObjectId,
+        ref: "Category"
     },
     tag:{
         type: Object, // Plain object
         default: {}
+    },
+    user:{
+        type: mongoose.Types.ObjectId,
+        ref: "User"
+    },
+    cover:{
+        type: String
     },
     created_at:{
         type: Date,

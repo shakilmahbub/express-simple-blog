@@ -1,3 +1,4 @@
+import Category from "../model/Category.js";
 import Post from "../model/Post.js";
 
 export const index = async (reg,res)=>{
@@ -13,8 +14,8 @@ export const create = async (reg,res)=>{
         pageTitle: "Add new post",
         pageDescription: "This is a simple blog using node express and ejs"
     };
-
-    return res.render('posts/create',{meta});
+    const categories = await Category.find();
+    return res.render('posts/create',{meta,categories});
 }
 
 export const store = async (req,res)=>{
@@ -24,7 +25,7 @@ export const store = async (req,res)=>{
     }
 
     try {
-        const newPost = new Post(req.body);
+        const newPost = new Post({...req.body,user:req.userId,cover: req.file?.filename,});
         await newPost.save();
         return res.redirect('/');
     } catch (error) {
@@ -36,8 +37,8 @@ export const store = async (req,res)=>{
 
 export const show = async (reg,res)=>{
     
-    const post = await Post.findById(reg.params.id);
-
+    const post = await Post.findById(reg.params.id).populate("user", "name email").populate("category", "title");
+    
     const meta = {
         pageTitle: post.title,
         pageDescription: "This is a simple blog using node express and ejs"

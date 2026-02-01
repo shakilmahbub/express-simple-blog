@@ -365,3 +365,10 @@ img {
 .categories li form {
     margin: 0;
 }
+
+.cover-image{
+  padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 0;
+}

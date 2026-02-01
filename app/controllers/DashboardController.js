@@ -1,6 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../model/User.js';
+import mailer from '../config/mailer.js';
+import ejs from 'ejs';
+import agenda from '../helper/agenda.js';
 
 export const index = async (reg,res)=>{
     const meta = {
@@ -21,7 +24,7 @@ export const login = (reg, res)=>{
 
 export const registration = (reg, res)=>{
     const meta = {
-        pageTitle: "Login",
+        pageTitle: "Registration",
         pageDescription: "Welcome to login"
     };
 
@@ -44,13 +47,27 @@ export const registerUser = async (req,res)=>{
         const user = new User({name,email,password:hashPassword});
         await user.save();
 
+
+        await agenda.now('send welcome email', {
+            email,
+            name,
+        });
+
+        // const emailTemplate = await ejs.renderFile('views/email/welcome.ejs');
+        // await mailer.sendMail({
+        //     from: '"Maddison Foo Koch" <maddison53@ethereal.email>',
+        //     to: "bar@example.com, baz@example.com",
+        //     subject: "Hello ✔",
+        //     text: "Hello world?", // Plain-text version of the message
+        //     html: emailTemplate, // HTML version of the message
+        // });
         return res.status(201).json({message: "Registration successful"});
     } catch (error) {
         if(error.code === 11000){
             return res.status(409).json({message: 'User exists'});
         }
 
-        return res.status(500).json({message: 'Internal server error'});
+        return res.status(500).json({error});
     }
 }
 
@@ -87,4 +104,11 @@ export const authenticateUser = async (req,res)=>{
         return res.status(500).json('Opps! something went wrong!');
     }
 
+}
+
+
+export const logout = (req,res)=>{
+    res.cookie('token','',{httpOnly: true,maxAge: 1});
+
+    return res.redirect('/');
 }
